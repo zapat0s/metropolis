@@ -32,7 +32,6 @@ class Metropolis extends ApplicationAdapter {
 
     SinglePlayerGame.update(world, tick)
 
-//    ConsoleRender.render(world, tick)
     LibGDXRender.render(world, tick)
   }
 

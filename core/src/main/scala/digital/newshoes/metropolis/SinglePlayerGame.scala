@@ -1,19 +1,12 @@
 package digital.newshoes.metropolis
 
+import digital.newshoes.metropolis.behavious.Simulate
+import digital.newshoes.metropolis.event._
+import digital.newshoes.metropolis.state._
+
 import scala.collection.mutable
 
-import digital.newshoes.metropolis.state._
-import digital.newshoes.metropolis.event._
-import digital.newshoes.metropolis.render.ConsoleRender
-import digital.newshoes.metropolis.behavious.Simulate
-
 object SinglePlayerGame {
-  def run(world: World, timesteps: Int) {
-    for(i <- 1 to timesteps) {
-      update(world, i)
-      ConsoleRender.render(world, i)
-    }
-  }
 
   def update(world: World, tick: Long) {
     def routeEntityEvent(tee:ToEntityEvent) {
