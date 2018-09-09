@@ -14,12 +14,12 @@ object Simulate {
         if(hourOfDay > 8 && hourOfDay < 16) {
           val employer = world.entities(r.employer).asInstanceOf[Business]
           val workplace = world.entities(employer.office).asInstanceOf[Building]
-          if (!workplace.lots.contains(r.position)) {
-            stateTransitions = SetTarget(workplace.lots.head) :: stateTransitions
+          if (!workplace.position.equals(r.position)) {
+            stateTransitions = SetTarget(workplace.position) :: stateTransitions
           }
         } else {
           val home = world.entities(r.residence).asInstanceOf[Building]
-          stateTransitions = SetTarget(home.lots.head) :: stateTransitions
+          stateTransitions = SetTarget(home.position) :: stateTransitions
         }
       case _ =>
     }
@@ -34,9 +34,9 @@ object Simulate {
     entity match {
       case r: Resident =>
         if(r.target.isDefined) {
-          val dirX = r.position.x + World.floor(r.target.get.x - r.position.x, -1, 1)
-          val dirY = r.position.y + World.floor(r.target.get.y - r.position.y, -1, 1)
-          stateTransitions = ChangePosition(world.clamp(Vec2i(dirX, dirY))) :: stateTransitions
+          val dirX = r.position.x + World.floor(r.target.get.x - r.position.x, -0.1f, 0.1f)
+          val dirY = r.position.y + World.floor(r.target.get.y - r.position.y, -0.1f, 0.1f)
+          stateTransitions = ChangePosition(world.clamp(Vec2f(dirX, dirY))) :: stateTransitions
         }
       case _ =>
     }

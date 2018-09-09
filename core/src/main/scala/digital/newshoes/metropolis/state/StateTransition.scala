@@ -12,7 +12,7 @@ case object Death extends InstantStateTransition[Entity] {
   }
 }
 
-case class SetTarget(target: Vec2i) extends InstantStateTransition[Entity] {
+case class SetTarget(target: Vec2f) extends InstantStateTransition[Entity] {
   def applyTo(entity: Entity, tick: Long): Unit = {
     entity match {
       case entity: Resident => entity.target = Some(target)
@@ -23,7 +23,7 @@ case class SetTarget(target: Vec2i) extends InstantStateTransition[Entity] {
 
 trait SimulatedStateTransition[T] extends StateTransition[T] // only update is allowed to return simulated state transitions (it can also return instants)
 
-case class ChangePosition(position: Vec2i) extends SimulatedStateTransition[Entity] {
+case class ChangePosition(position: Vec2f) extends SimulatedStateTransition[Entity] {
   def applyTo(entity: Entity, tick: Long) {
     entity match {
       case entity: Resident => entity.position := position

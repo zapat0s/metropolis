@@ -2,36 +2,34 @@ package digital.newshoes.metropolis.state
 
 import collection.mutable
 
-case class Lot(var occupant:Option[StaticEntity], var glyph:Byte)
-
-class World(val size: Vec2i) {
-  def clamp(location: Vec2i): Vec2i = {
-    val x = World.floor(location.x, 0, this.size.x)
-    val y = World.floor(location.y, 0, this.size.y)
-    Vec2i(x, y)
-  }
-
-  val lots = new Array[Lot](size.product)
+class World(val size: Vec2f) {
+  val lots = new Array[Option[Long]](size.product.toInt)
   val entities = new mutable.HashMap[Long, Entity]()
 
-  def isLotOccupied(x: Int, y: Int): Boolean = getLotAt(x, y).occupant.isDefined
+  def clamp(location: Vec2f): Vec2f = {
+    val x = World.floor(location.x, 0, this.size.x)
+    val y = World.floor(location.y, 0, this.size.y)
+    Vec2f(x, y)
+  }
 
-  def getLotAt(x: Int, y: Int) : Lot = {
+  def isLotOccupied(x: Int, y: Int): Boolean = getLotAt(x, y).isDefined
+
+  def getLotAt(x: Int, y: Int) : Option[Long] = {
     lots(lotPosition(x, y))
   }
 
-  def setLotAt(x: Int, y: Int, l:Lot) {
+  def setLotAt(x: Int, y: Int, l: Option[Long]) {
     lots(lotPosition(x, y)) = l
   }
 
   private def lotPosition(x: Int, y: Int) : Int = {
-    size.y * x + y
+    (size.y * x + y).toInt
   }
 }
 
 object World {
 
-  def floor(n: Int, min: Int, max: Int): Int = {
+  def floor(n: Float, min: Float, max: Float): Float = {
     if(n < min) {
       min
     } else if (n > max) {
@@ -41,28 +39,27 @@ object World {
     }
   }
 
-  def assignBorders(world: World, l: Lot) {
+  def assignBorders(world: World, l: Option[Long]) {
     for {
-      x <- 0 until world.size.x
+      x <- 0 until world.size.x.toInt
     } {
       world.setLotAt(x, 0 , l)
-      world.setLotAt(x, world.size.y - 1, l)
+      world.setLotAt(x, (world.size.y - 1.0).toInt, l)
     }
 
     for {
-      y <- 0 until world.size.y
+      y <- 0 until world.size.y.toInt
     } {
       world.setLotAt(0, y, l)
-      world.setLotAt(world.size.x - 1, y, l)
+      world.setLotAt((world.size.x - 1).toInt, y, l)
     }
   }
 }
 
 
-
-case class Vec2i(var x: Int, var y: Int) {
-  def product = x * y
-  def :=(other: Vec2i) {
+case class Vec2f(var x: Float, var y: Float) {
+  def product: Float = x * y
+  def :=(other: Vec2f) {
     x = other.x
     y = other.y
   }

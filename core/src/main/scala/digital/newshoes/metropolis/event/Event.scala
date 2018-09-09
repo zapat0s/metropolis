@@ -19,13 +19,13 @@ case class SimulationOutput(events: Seq[Event], transitions: Seq[StateTransition
 
 
 // ROUTED EVENTS
-case class PlaceItemAt(at: Vec2i, itemType: Int, from: Int) extends FromEntityEvent with ZoneEvent {
+case class PlaceItemAt(at: Vec2f, itemType: Int, from: Int) extends FromEntityEvent with ZoneEvent {
   def failure = PlaceItemFailed(itemType, from)
 }
 case class PlaceItemFailed(itemType: Int, to: Int) extends ToEntityEvent
 case class PlaceItemSucceeded(itemType: Int, to: Int) extends ToEntityEvent
 
-case class RequestPath(fromPosition: Vec2i, toPosition: Vec2i, from: Int) extends FromEntityEvent {
+case class RequestPath(fromPosition: Vec2f, toPosition: Vec2f, from: Int) extends FromEntityEvent {
   def failure = PathRequestFailed(from)
 }
 

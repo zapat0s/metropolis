@@ -20,6 +20,7 @@ allprojects {
     ext {
         appName = "metropolis"
         scalaVersion = '2.12.6'
+        argonautVersion = '2.12'
         gdxVersion = '1.9.8'
         roboVMVersion = '2.3.3'
         box2DLightsVersion = '1.4'
@@ -52,6 +53,7 @@ project(":core") {
 
     dependencies {
         compile "org.scala-lang:scala-library:$scalaVersion"
+        compile "io.argonaut:argonaut_2.12:6.2.2"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         testCompile 'org.scalatest:scalatest_2.11:3.0.0'
         testCompile 'junit:junit:4.12'
