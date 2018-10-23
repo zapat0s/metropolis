@@ -1,10 +1,8 @@
 package digital.newshoes.metropolis.state
 
-import collection.mutable
+import upickle.default.{macroRW, ReadWriter => RW}
 
-class World(val size: Vec2f) {
-  val lots = new Array[Option[Long]](size.product.toInt)
-  val entities = new mutable.HashMap[Long, Entity]()
+case class World(size: Vec2f, lots: Array[Option[Long]], entities: Map[Long, Entity]) {
 
   def clamp(location: Vec2f): Vec2f = {
     val x = World.floor(location.x, 0, this.size.x)
@@ -54,6 +52,8 @@ object World {
       world.setLotAt((world.size.x - 1).toInt, y, l)
     }
   }
+
+  implicit def rw: RW[World] = macroRW
 }
 
 
@@ -63,4 +63,8 @@ case class Vec2f(var x: Float, var y: Float) {
     x = other.x
     y = other.y
   }
+}
+
+object Vec2f {
+  implicit def rw: RW[Vec2f] = macroRW
 }

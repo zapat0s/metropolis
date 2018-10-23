@@ -1,10 +1,10 @@
 package digital.newshoes.metropolis.render
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.{GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.graphics.g2d.{Sprite, SpriteBatch}
+import com.badlogic.gdx.graphics.{GL20, OrthographicCamera, Texture}
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer
-import com.badlogic.gdx.maps.tiled.{TiledMap, TiledMapTileLayer, TmxMapLoader}
+import com.badlogic.gdx.maps.tiled.{TiledMap, TmxMapLoader}
 import digital.newshoes.metropolis.state._
 
 import scala.collection.mutable
@@ -64,7 +64,7 @@ object LibGDXRender {
     world.entities.foreach(e => e._2 match {
       case r: Resident => renderResident(r, batch)
       case b: Building => renderBuilding(b, batch)
-      case b: Business => Unit
+      case _: Business => Unit
       case _ => Gdx.app.log("LibGDXRender", "Unknown Entity type encountered.")
     })
 
@@ -89,10 +89,7 @@ object LibGDXRender {
   def renderBuilding(b: Building, batch: SpriteBatch): Unit = {
     b.components.foreach( c => {
       val sprite: Sprite = buildingSprites(c.sprite)
-      val position: Vec2f = b.rotation match {
-        case Direction.North => Vec2f(b.position.x + c.position.x, b.position.y + c.position.y)
-        case _ => Vec2f(b.position.x + c.position.x, b.position.y + c.position.y)
-      }
+      val position: Vec2f =  Vec2f(b.position.x + c.position.x, b.position.y + c.position.y)
       sprite.setPosition(position.x, position.y)
       sprite.draw(batch)
     })
