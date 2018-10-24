@@ -1,4 +1,4 @@
-package digital.newshoes.metropolis.behavious
+package digital.newshoes.metropolis.behavior
 
 import digital.newshoes.metropolis.event._
 import digital.newshoes.metropolis.state._
@@ -34,9 +34,9 @@ object Simulate {
     entity match {
       case r: Resident =>
         if(r.target.isDefined) {
-          val dirX = r.position.x + World.floor(r.target.get.x - r.position.x, -0.1f, 0.1f)
-          val dirY = r.position.y + World.floor(r.target.get.y - r.position.y, -0.1f, 0.1f)
-          stateTransitions = ChangePosition(world.clamp(Vec2f(dirX, dirY))) :: stateTransitions
+          val dirX = r.position.x + Math.max(Math.min(r.target.get.x - r.position.x, 0.1), -0.1)
+          val dirY = r.position.y + Math.max(Math.min(r.target.get.y - r.position.y, 0.1), -0.1)
+          stateTransitions = ChangePosition(Vec2f(dirX.toFloat, dirY.toFloat)) :: stateTransitions
         }
       case _ =>
     }

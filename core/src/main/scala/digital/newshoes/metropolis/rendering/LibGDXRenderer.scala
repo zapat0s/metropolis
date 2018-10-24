@@ -1,4 +1,4 @@
-package digital.newshoes.metropolis.render
+package digital.newshoes.metropolis.rendering
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.{Sprite, SpriteBatch}
@@ -9,7 +9,7 @@ import digital.newshoes.metropolis.state._
 
 import scala.collection.mutable
 
-object LibGDXRender {
+object LibGDXRenderer extends Renderer {
   private var batch: SpriteBatch = _
   private var camera: OrthographicCamera= _
 
@@ -27,28 +27,28 @@ object LibGDXRender {
     batch = new SpriteBatch
 
     manTexture = new Texture("soldier.png")
-    manSprite = new Sprite(manTexture, 16,200, 50, 56)
+    manSprite = new Sprite(manTexture, 16, 200, 50, 56)
     manSprite.setSize(1.0f, 1.3f)
 
     buildingSprites = new mutable.HashMap()
     buildingTexture = new Texture("house.png")
-    val wallSprite = new Sprite(buildingTexture, 96,96)
+    val wallSprite = new Sprite(buildingTexture, 96, 96)
     wallSprite.setSize(2.0f, 2.0f)
     buildingSprites.put("wall", wallSprite)
 
-    val roofSprite = new Sprite(buildingTexture,0,96, 96,96)
+    val roofSprite = new Sprite(buildingTexture, 0, 96, 96, 96)
     roofSprite.setSize(2.0f, 2.0f)
     buildingSprites.put("roof", roofSprite)
 
     map = new TmxMapLoader().load("test.tmx")
-    mapRenderer = new OrthogonalTiledMapRenderer(map, 1/32f)
+    mapRenderer = new OrthogonalTiledMapRenderer(map, 1 / 32f)
 
     camera = new OrthographicCamera()
     camera.setToOrtho(false, 30, 20)
     camera.translate(-2.5f, 0)
   }
 
-  def render(world:World, step:Int): Unit = {
+  def render(world: World, step: Int): Unit = {
     camera.update()
     batch.setProjectionMatrix(camera.combined)
 

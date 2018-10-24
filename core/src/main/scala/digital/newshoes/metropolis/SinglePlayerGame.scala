@@ -1,6 +1,6 @@
 package digital.newshoes.metropolis
 
-import digital.newshoes.metropolis.behavious.Simulate
+import digital.newshoes.metropolis.behavior.Simulate
 import digital.newshoes.metropolis.event._
 import digital.newshoes.metropolis.state._
 

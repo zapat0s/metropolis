@@ -1,7 +1,7 @@
 package digital.newshoes.metropolis.state
 
 import digital.newshoes.metropolis.event.ToEntityEvent
-import upickle.default.{macroRW, ReadWriter => RW}
+import upickle.default.{ReadWriter, macroRW}
 
 import scala.collection.mutable
 
@@ -13,13 +13,13 @@ sealed trait Entity {
 }
 
 object Entity{
-  implicit def rw: RW[Entity] = RW.merge(ConsciousEntity.rw, StaticEntity.rw)
+  implicit def rw: ReadWriter[Entity] = ReadWriter.merge(ConsciousEntity.rw, StaticEntity.rw)
 }
 
 sealed trait ConsciousEntity extends Entity
 
 object ConsciousEntity{
-  implicit def rw: RW[ConsciousEntity] = RW.merge(Resident.rw, Business.rw)
+  implicit def rw: ReadWriter[ConsciousEntity] = ReadWriter.merge(Resident.rw, Business.rw)
 }
 
 case class Resident( id: Long,
@@ -34,7 +34,7 @@ case class Resident( id: Long,
 }
 
 object Resident {
-  implicit def rw: RW[Resident] = macroRW
+  implicit def rw: ReadWriter[Resident] = macroRW
 }
 
 case class Business( id: Long,
@@ -47,14 +47,14 @@ case class Business( id: Long,
 }
 
 object Business {
-  implicit def rw: RW[Business] = macroRW
+  implicit def rw: ReadWriter[Business] = macroRW
 }
 
 
 sealed trait StaticEntity extends Entity
 
 object StaticEntity{
-  implicit def rw: RW[StaticEntity] = RW.merge(Building.rw, Prop.rw)
+  implicit def rw: ReadWriter[StaticEntity] = ReadWriter.merge(Building.rw, Prop.rw)
 }
 
 case class Building( id: Long,
@@ -67,7 +67,7 @@ case class Building( id: Long,
 }
 
 object Building {
-  implicit def rw: RW[Building] = macroRW
+  implicit def rw: ReadWriter[Building] = macroRW
 }
 
 case class Prop( id: Long,
@@ -79,13 +79,13 @@ case class Prop( id: Long,
 }
 
 object Prop {
-  implicit def rw: RW[Prop] = macroRW
+  implicit def rw: ReadWriter[Prop] = macroRW
 }
 
 case class BuildingComponent(position: Vec2f, sprite: String)
 
 object BuildingComponent {
-  implicit def rw: RW[BuildingComponent] = macroRW
+  implicit def rw: ReadWriter[BuildingComponent] = macroRW
 }
 
 object Direction extends Enumeration {

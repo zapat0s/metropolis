@@ -1,1 +1,169 @@
-{"size":{"x":16,"y":16},"lots":[[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],null,null,null,null,null,null,null,null,null,null,null,null,null,null,[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],"entities":[["0",{"$type":"digital.newshoes.metropolis.state.Resident","id":"0","bornOn":"0","name":"Bobbie","position":{"x":1,"y":1},"target":[{"x":1,"y":1}],"residence":"1","employer":"2"}],["1",{"$type":"digital.newshoes.metropolis.state.Building","id":"1","builtOn":"0","position":{"x":1,"y":1},"components":[{"position":{"x":0,"y":0},"sprite":"wall"},{"position":{"x":0,"y":2},"sprite":"roof"}],"occupant":"0"}],["2",{"$type":"digital.newshoes.metropolis.state.Business","id":"2","foundedOn":"0","name":"Acme","businessType":0,"office":"3","employees":["0"]}],["3",{"$type":"digital.newshoes.metropolis.state.Building","id":"3","builtOn":"0","position":{"x":6,"y":6},"components":[{"position":{"x":-2,"y":0},"sprite":"wall"},{"position":{"x":0,"y":0},"sprite":"wall"},{"position":{"x":-2,"y":2},"sprite":"roof"},{"position":{"x":0,"y":2},"sprite":"roof"}],"occupant":"0"}]]}
+{
+  "roads": [
+    [
+      "0",
+      {
+        "start": "0",
+        "end": "1",
+        "lots": []
+      }
+    ],
+    [
+      "1",
+      {
+        "start": "1",
+        "end": "2",
+        "lots": []
+      }
+    ]
+  ],
+  "intersections": [
+    [
+      "0",
+      {
+        "position": {
+          "x": 0,
+          "y": 6
+        },
+        "roads": [
+          "0"
+        ]
+      }
+    ],
+    [
+      "1",
+      {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "roads": [
+          "0",
+          "1"
+        ]
+      }
+    ],
+    [
+      "2",
+      {
+        "position": {
+          "x": 6,
+          "y": 0
+        },
+        "roads": [
+          "1"
+        ]
+      }
+    ]
+  ],
+  "lots": [],
+  "entities": [
+    [
+      "0",
+      {
+        "$type": "digital.newshoes.metropolis.state.Resident",
+        "id": "0",
+        "bornOn": "0",
+        "name": "Bobbie",
+        "position": {
+          "x": 1,
+          "y": 1
+        },
+        "target": [
+          {
+            "x": 1,
+            "y": 1
+          }
+        ],
+        "residence": "1",
+        "employer": "2"
+      }
+    ],
+    [
+      "1",
+      {
+        "$type": "digital.newshoes.metropolis.state.Building",
+        "id": "1",
+        "builtOn": "0",
+        "position": {
+          "x": 1,
+          "y": 1
+        },
+        "components": [
+          {
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "sprite": "wall"
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 2
+            },
+            "sprite": "roof"
+          }
+        ],
+        "occupant": "0"
+      }
+    ],
+    [
+      "2",
+      {
+        "$type": "digital.newshoes.metropolis.state.Business",
+        "id": "2",
+        "foundedOn": "0",
+        "name": "Acme",
+        "businessType": 0,
+        "office": "3",
+        "employees": [
+          "0"
+        ]
+      }
+    ],
+    [
+      "3",
+      {
+        "$type": "digital.newshoes.metropolis.state.Building",
+        "id": "3",
+        "builtOn": "0",
+        "position": {
+          "x": 6,
+          "y": 6
+        },
+        "components": [
+          {
+            "position": {
+              "x": -2,
+              "y": 0
+            },
+            "sprite": "wall"
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 0
+            },
+            "sprite": "wall"
+          },
+          {
+            "position": {
+              "x": -2,
+              "y": 2
+            },
+            "sprite": "roof"
+          },
+          {
+            "position": {
+              "x": 0,
+              "y": 2
+            },
+            "sprite": "roof"
+          }
+        ],
+        "occupant": "0"
+      }
+    ]
+  ]
+}

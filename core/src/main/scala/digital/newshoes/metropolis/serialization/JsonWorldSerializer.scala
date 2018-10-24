@@ -1,4 +1,4 @@
-package digital.newshoes.metropolis.creation
+package digital.newshoes.metropolis.serialization
 
 import java.io.{File, FileWriter}
 
