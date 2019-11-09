@@ -12,6 +12,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.github.maiflai.scalatest" version "0.23"
+}
+
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
@@ -19,13 +23,13 @@ allprojects {
     version = '1.0'
     ext {
         appName = "metropolis"
-        scalaVersion = '2.12.6'
-        upickleVersion = '0.6.6'
-        gdxVersion = '1.9.8'
-        roboVMVersion = '2.3.3'
-        box2DLightsVersion = '1.4'
-        ashleyVersion = '1.7.0'
-        aiVersion = '1.8.0'
+        scalaVersion = '2.13.1'
+        scalacticVersion = '3.0.8'
+        scalatestVersion = '3.0.8'
+        upickleVersion = '0.8.0'
+        gdxVersion = '1.9.9'
+        ashleyVersion = '1.7.3'
+        aiVersion = '1.8.2'
     }
 
     repositories {
@@ -34,6 +38,8 @@ allprojects {
         google()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "http://repo.artima.com/releases" }
+        maven { url "https://repo1.maven.org/maven2" }
     }
 }
 
@@ -42,7 +48,7 @@ project(":desktop") {
 
     dependencies {
         compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }
@@ -51,11 +57,12 @@ project(":core") {
     apply plugin: "scala"
 
     dependencies {
-        compile "org.scala-lang:scala-library:$scalaVersion"
-        compile "com.lihaoyi:upickle_2.12:$upickleVersion"
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        testCompile 'org.scalatest:scalatest_2.12:3.0.0'
-        testCompile 'junit:junit:4.12'
+        compile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+        compile group: 'com.lihaoyi', name: 'upickle_2.13', version: upickleVersion
+        compile group: 'com.badlogicgames.gdx', name: 'gdx', version: gdxVersion
+        compile group: 'org.scalactic', name: 'scalactic_2.13', version: scalacticVersion
+        testCompile group: 'org.scalatest', name: 'scalatest-app_2.13', version: scalatestVersion
+        testRuntime 'org.pegdown:pegdown:1.4.2'
     }
 }
 
