@@ -1,25 +1,25 @@
 package digital.newshoes.metropolis.state
 
 import digital.newshoes.metropolis.event.ToEntityEvent
-import upickle.default.{ReadWriter, macroRW}
 
 import scala.collection.mutable
+import upickle.default.{ReadWriter => RW, macroRW}
 
 sealed trait Entity {
   val id: Long
   val createdOn: Long
-  var destroyedOn: Option[Long] = None
   val events = new mutable.Queue[ToEntityEvent]()
+  var destroyedOn: Option[Long] = None
 }
 
-object Entity{
-  implicit def rw: ReadWriter[Entity] = ReadWriter.merge(ConsciousEntity.rw, StaticEntity.rw)
+object Entity {
+  implicit val rw: RW[Entity] = macroRW
 }
 
 sealed trait ConsciousEntity extends Entity
 
-object ConsciousEntity{
-  implicit def rw: ReadWriter[ConsciousEntity] = ReadWriter.merge(Resident.rw, Business.rw)
+object ConsciousEntity {
+  implicit val rw: RW[ConsciousEntity] = macroRW
 }
 
 case class Resident( id: Long,
@@ -34,7 +34,7 @@ case class Resident( id: Long,
 }
 
 object Resident {
-  implicit def rw: ReadWriter[Resident] = macroRW
+  implicit val rw: RW[Resident] = macroRW
 }
 
 case class Business( id: Long,
@@ -47,14 +47,13 @@ case class Business( id: Long,
 }
 
 object Business {
-  implicit def rw: ReadWriter[Business] = macroRW
+  implicit val rw: RW[Business] = macroRW
 }
-
 
 sealed trait StaticEntity extends Entity
 
-object StaticEntity{
-  implicit def rw: ReadWriter[StaticEntity] = ReadWriter.merge(Building.rw, Prop.rw)
+object StaticEntity {
+  implicit val rw: RW[StaticEntity] = macroRW
 }
 
 case class Building( id: Long,
@@ -67,7 +66,7 @@ case class Building( id: Long,
 }
 
 object Building {
-  implicit def rw: ReadWriter[Building] = macroRW
+  implicit val rw: RW[Building] = macroRW
 }
 
 case class Prop( id: Long,
@@ -79,13 +78,13 @@ case class Prop( id: Long,
 }
 
 object Prop {
-  implicit def rw: ReadWriter[Prop] = macroRW
+  implicit val rw: RW[Prop] = macroRW
 }
 
 case class BuildingComponent(position: Vec2f, sprite: String)
 
 object BuildingComponent {
-  implicit def rw: ReadWriter[BuildingComponent] = macroRW
+  implicit val rw: RW[BuildingComponent] = macroRW
 }
 
 object Direction extends Enumeration {

@@ -17,5 +17,5 @@ object World {
     }
   }
 
-  implicit def rw: RW[World] = macroRW
+  implicit val rw: RW[World] = macroRW
 }

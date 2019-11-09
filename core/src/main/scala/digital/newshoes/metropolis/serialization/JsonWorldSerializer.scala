@@ -5,20 +5,20 @@ import java.io.{File, FileWriter}
 import digital.newshoes.metropolis.state.World
 import upickle.default._
 
-object JsonWorldSerializer extends WorldSerializer {
+object JsonWorldSerializer {
 
   def save(world: World, path: String): Unit = {
     val worldJson = write(world)
-    val entityWriter = new FileWriter(path)
+    val writer = new FileWriter(path)
     try {
-      entityWriter.write(worldJson)
+      writer.write(worldJson)
     } finally {
-      entityWriter.close()
+      writer.close()
     }
   }
 
-  def load(path: String): World = {
-    val worldFile: File = new File(path)
-    read[World](worldFile)
-  }
+//  def load(path: String): World = {
+//    val worldFile: File = new File(path)
+//    read[World](worldFile)
+//  }
 }

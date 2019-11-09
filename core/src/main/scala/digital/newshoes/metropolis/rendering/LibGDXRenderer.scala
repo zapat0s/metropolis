@@ -11,7 +11,7 @@ import scala.collection.mutable
 
 object LibGDXRenderer extends Renderer {
   private var batch: SpriteBatch = _
-  private var camera: OrthographicCamera= _
+  private var camera: OrthographicCamera = _
 
   private var manTexture: Texture = _
   private var manSprite: Sprite = _
@@ -23,7 +23,7 @@ object LibGDXRenderer extends Renderer {
   private var map: TiledMap = _
   private var mapRenderer: OrthogonalTiledMapRenderer = _
 
-  def initalize(): Unit = {
+  def initialize(): Unit = {
     batch = new SpriteBatch
 
     manTexture = new Texture("soldier.png")
@@ -64,11 +64,25 @@ object LibGDXRenderer extends Renderer {
     world.entities.foreach(e => e._2 match {
       case r: Resident => renderResident(r, batch)
       case b: Building => renderBuilding(b, batch)
-      case _: Business => Unit
+      case _: Business => ()
       case _ => Gdx.app.log("LibGDXRender", "Unknown Entity type encountered.")
     })
 
     batch.end()
+  }
+
+  private def renderResident(resident: Resident, spriteBatch: SpriteBatch): Unit = {
+    manSprite.setPosition(resident.position.x, resident.position.y)
+    manSprite.draw(spriteBatch)
+  }
+
+  def renderBuilding(b: Building, batch: SpriteBatch): Unit = {
+    b.components.foreach(c => {
+      val sprite: Sprite = buildingSprites(c.sprite)
+      val position: Vec2f = Vec2f(b.position.x + c.position.x, b.position.y + c.position.y)
+      sprite.setPosition(position.x, position.y)
+      sprite.draw(batch)
+    })
   }
 
   def cleanup(): Unit = {
@@ -79,19 +93,5 @@ object LibGDXRenderer extends Renderer {
   def updateCameraOrientation(position: (Int, Int), rotation: Int, zoom: Int): Unit = {
     camera.position.x = position._1
     camera.position.y = position._2
-  }
-
-  private def renderResident(resident: Resident, spriteBatch: SpriteBatch): Unit = {
-    manSprite.setPosition(resident.position.x, resident.position.y)
-    manSprite.draw(spriteBatch)
-  }
-
-  def renderBuilding(b: Building, batch: SpriteBatch): Unit = {
-    b.components.foreach( c => {
-      val sprite: Sprite = buildingSprites(c.sprite)
-      val position: Vec2f =  Vec2f(b.position.x + c.position.x, b.position.y + c.position.y)
-      sprite.setPosition(position.x, position.y)
-      sprite.draw(batch)
-    })
   }
 }

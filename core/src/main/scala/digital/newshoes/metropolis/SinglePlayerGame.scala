@@ -8,8 +8,8 @@ import scala.collection.mutable
 
 object SinglePlayerGame {
 
-  def update(world: World, tick: Long) {
-    def routeEntityEvent(tee:ToEntityEvent) {
+  def update(world: World, tick: Long) : Unit = {
+    def routeEntityEvent(tee:ToEntityEvent) : Unit = {
       world.entities(tee.to).events += tee
     }
 
@@ -32,7 +32,7 @@ object SinglePlayerGame {
     // mutex over the zone events
   }
 
-  def updateConscious(world: World, tick: Long, entity: ConsciousEntity, id: Long) : Seq[Event] = {
+  def updateConscious(world: World, tick: Long, entity: ConsciousEntity, id: Long) : mutable.Queue[Event] = {
     val replyEvents = entity.events.flatMap { ev =>
       applyConsciousEvent(entity, ev, id)
     }
@@ -49,18 +49,7 @@ object SinglePlayerGame {
     replyEvents ++ decision.events ++ simulate.events
   }
 
-  def updateStatic(world: World, entity: StaticEntity, id: Long):Seq[Event] = {
-    Seq.empty
-  }
-
   def applyStateTransitionToConscious(tick: Long, entity: ConsciousEntity, transitions: Seq[StateTransition[Entity]]) : Seq[Event] = {
-    for(transition <- transitions) {
-      transition.applyTo(entity, tick)
-    }
-    Seq.empty
-  }
-
-  def applyStateTransitionToEntity(tick: Long, entity: Entity, transitions:Seq[StateTransition[Entity]]) : Seq[Event] = {
     for(transition <- transitions) {
       transition.applyTo(entity, tick)
     }
@@ -78,6 +67,17 @@ object SinglePlayerGame {
     //        entity.alive = entity.health > 0
     //      }
     //    }
+    Seq.empty
+  }
+
+  def updateStatic(world: World, entity: StaticEntity, id: Long):Seq[Event] = {
+    Seq.empty
+  }
+
+  def applyStateTransitionToEntity(tick: Long, entity: Entity, transitions:Seq[StateTransition[Entity]]) : Seq[Event] = {
+    for(transition <- transitions) {
+      transition.applyTo(entity, tick)
+    }
     Seq.empty
   }
 }
